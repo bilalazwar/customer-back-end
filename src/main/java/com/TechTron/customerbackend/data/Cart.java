@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "cart_tbl")
 @Getter
@@ -17,7 +19,7 @@ public class Cart {
 
     @ManyToOne
     @JoinColumn(name = "Customer_Identity", referencedColumnName = "Customer_Id")   //The @JoinColumn annotation generates the foreign key column in the dependent entity's table (in this case, the customer_Identity column in the cart_tbl table).
-    private Customer custmr;
+    private Customer cust;
 
     //The @JoinColumn annotation creates the foreign key that links the tables.
 
@@ -27,7 +29,7 @@ public class Cart {
     private boolean active;
 
     @OneToMany(mappedBy = "crt", cascade = CascadeType.ALL)
-    private CartItem cartitem;
+    private List<CartItem> cartItem;
 
     @OneToOne(mappedBy = "cart" , cascade = CascadeType.ALL)
     private Order order;

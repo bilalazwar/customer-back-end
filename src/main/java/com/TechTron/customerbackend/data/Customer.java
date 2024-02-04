@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity             // java persistence both down also. Tells JPA it's a Entity
 @Table(name = "customer_tbl")
 
@@ -16,10 +18,10 @@ public class Customer {
     @Column(name = "Customer_Id")
     private int customerId;
 
-    @Column(name = "Name")
+    @Column(name = "Name" , length = 35)  // VARCHAR(36) in the database
     private String name;
 
-    @Column(name = "E-mail")
+    @Column(name = "E-mail", length = 50)
     private String email;
 
     @Column(name = "Phone_Number")
@@ -29,11 +31,13 @@ public class Customer {
     private String address;
 
     //cascade should come to the side owning the foreign key.. the side where the primary key is
-    @OneToMany(mappedBy = "custmr", cascade = CascadeType.ALL)         //Ensures that operations (save, update, delete) on the Customer also apply to the associated Cart. This maintains consistency and prevents orphaned records.
-    private Cart crt;      //facilitates easy access to cart data when dealing with customers
+    @OneToMany(mappedBy = "cust", cascade = CascadeType.ALL)         //Ensures that operations (save, update, delete) on the Customer also apply to the associated Cart. This maintains consistency and prevents orphaned records.
+    private List<Cart> crt;      //facilitates easy access to cart data when dealing with customers
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private Order order;
+    private List<Order> order;
+
+    //The mappedBy attribute emphasizes that the Cart entity "owns" the relationship, meaning it has the foreign key referencing the Customer.
 
 
     //These variables act as placeholders to hold references to objects of the related entity.
