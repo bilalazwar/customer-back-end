@@ -1,10 +1,8 @@
-package com.TechTron.customerbackend.data;
+package com.TechTron.customerbackend.data.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Table(name = "cart_item_tbl")

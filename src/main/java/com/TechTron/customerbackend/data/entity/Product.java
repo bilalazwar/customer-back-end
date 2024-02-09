@@ -1,6 +1,5 @@
-package com.TechTron.customerbackend.data;
+package com.TechTron.customerbackend.data.entity;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

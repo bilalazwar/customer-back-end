@@ -1,15 +1,17 @@
-package com.TechTron.customerbackend.data;
+package com.TechTron.customerbackend.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Entity             // java persistence both down also. Tells JPA it's a Entity
+@Entity
 @Table(name = "customer_tbl")
 
-@Getter         //Lombok Library annotation. after compiling can check in the target directory
+@Getter
 @Setter
 public class Customer {
 
@@ -30,12 +32,60 @@ public class Customer {
     @Column(name = "Address")
     private String address;
 
-    //cascade should come to the side owning the foreign key.. the side where the primary key is
-    @OneToMany(mappedBy = "cust", cascade = CascadeType.ALL)         //Ensures that operations (save, update, delete) on the Customer also apply to the associated Cart. This maintains consistency and prevents orphaned records.
-    private List<Cart> crt;      //facilitates easy access to cart data when dealing with customers
+    @JsonManagedReference
+    @OneToMany(mappedBy = "cust", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)  // fetch will not work without specifying FetchType,  When creating customer create cart also hppens  this might not be the desired outcome
+    private List<Cart> crt;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Order> order;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//@Entity             // java persistence library also table. Tells JPA it's a Entity
+//@Table(name = "customer_tbl")
+//
+//@Getter         //Lombok Library annotation. after compiling can check in the target directory
+//@Setter
+
+
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "Customer_Id")
+//    private int customerId;
+//
+//    @Column(name = "Name" , length = 35)  // VARCHAR(36) in the database
+//    private String name;
+//
+//    @Column(name = "E-mail", length = 50)
+//    private String email;
+//
+//    @Column(name = "Phone_Number")
+//    private int phoneNumber;
+//
+//    @Column(name = "Address")
+//    private String address;
+//
+//    //cascade should come to the side owning the foreign key.. the side where the primary key is
+//    @OneToMany(mappedBy = "cust", cascade = CascadeType.ALL)         //Ensures that operations (save, update, delete) on the Customer also apply to the associated Cart. This maintains consistency and prevents orphaned records.
+//    private List<Cart> crt;      //facilitates easy access to cart data when dealing with customers
+
+//    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+//    private List<Order> order;
+
+
 
     //The mappedBy attribute emphasizes that the Cart entity "owns" the relationship, meaning it has the foreign key referencing the Customer.
 
@@ -47,7 +97,7 @@ public class Customer {
 
     //cascade = attribute ensures data consistency and prevents orphaned records.
 
-}
+//}
 
 
 

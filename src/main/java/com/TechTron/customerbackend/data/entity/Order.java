@@ -1,11 +1,10 @@
-package com.TechTron.customerbackend.data;
+package com.TechTron.customerbackend.data.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "order_tbl")
@@ -19,9 +18,9 @@ public class Order {
     @Column(name = "order_id")
     private int orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "Cust_Id", referencedColumnName = "Customer_Id")
-    private Customer customer;
+//    @ManyToOne
+//    @JoinColumn(name = "Cust_Id", referencedColumnName = "Customer_Id")
+//    private Customer customer;
 
     @OneToOne
     @JoinColumn(name = "Cart_Id", referencedColumnName = "Cart_Id")
