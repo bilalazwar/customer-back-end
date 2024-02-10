@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,11 @@ public class CustomerService {
     public Customer createCustomer(Customer customer){
 
         return customerRepository.save(customer);
+    }
+
+    public List<Customer> getAllCustomer() {
+
+        return customerRepository.findAll();
     }
 
     public Optional<Customer> getCustomer(int id){
@@ -59,46 +65,15 @@ public class CustomerService {
             existingCustomer.setPhoneNumber(updatedCustomer.getPhoneNumber());
         }
         else if(updatedCustomer.getAddress() != null){
-
-        }existingCustomer.setAddress(updatedCustomer.getAddress());
+            existingCustomer.setAddress(updatedCustomer.getAddress());
+        }
 
         return existingCustomer;
 
     }
+
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//// 1. Create the Cart object (optional, if needed)
-//Cart cart = new Cart(); // Set other cart properties if needed
-//
-//// 2. Set the Cart's cust property to the Customer object
-//        cart.setCust(customer);
-//
-//// 3. Save the Customer object first
-//customer = customerRepository.save(customer); // Get the saved customer with actual ID
-//
-//// 4. Set the Cart's cust property again with the saved customer (having actual ID)
-//        cart.setCust(customer);
-//
-//// 5. Save the Cart object
-//        cartRepository.save(cart);
-//
-//// 6. Return the saved customer (optional)
-//        return customer;
 
 
 

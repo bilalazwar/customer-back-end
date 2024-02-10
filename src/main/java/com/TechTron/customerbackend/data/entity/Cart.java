@@ -21,7 +21,7 @@ public class Cart {
     private int cartId;
 
 //    @JsonIgnore
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "Customer_Identity", referencedColumnName = "Customer_Id")
     private Customer cust;
@@ -29,8 +29,9 @@ public class Cart {
     @Column(name = "Active")
     private boolean active;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "crt", cascade = CascadeType.ALL)
+//    @JsonIgnore
+    @JsonBackReference
+    @OneToMany(mappedBy = "crt")
     private List<CartItem> cartItem;
 
     @JsonIgnore

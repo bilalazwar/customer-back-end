@@ -16,12 +16,31 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
     void updateCustomerIdByCartId(@Param("customerId") int customerId, @Param("cartId") int cartId);
 
 
-
-//    @Modifying
-//    @Query("UPDATE Cart SET cust = :customer WHERE cartId = :cartId")
-//    void updateCustomerByCartId(@Param("customer") Customer customer, @Param("cartId") int cartId);
-
-//    @Modifying
-//    @Query("UPDATE Cart c SET c.cust = :customer WHERE c.cartId = :cartId")
-//    void updateCustomerByCartId(@Param("customer") Customer customer, @Param("cartId") int cartId);
+    @Modifying
+    @Query("UPDATE Cart SET active = :active WHERE cartId = :cartId")
+    void UpdateCartStatus(@Param("active") boolean active, @Param("cartId") int cartId);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//@Query("SELECT c FROM Cart c WHERE c.cartId = :cartId")
+//Cart findById(@Param("cartId") int cartId);
+//
+//default Cart updateCustomerIdAndReturnCart(int customerId, int cartId) {
+//    int rowsUpdated = updateCustomerIdByCartId(customerId, cartId);
+//    if (rowsUpdated == 1) { // Ensure exactly one cart was updated
+//        return findById(cartId);
+//    } else {
+//        throw new EntityNotFoundException("Cart with ID " + cartId + " not found");
+//    }
+//}

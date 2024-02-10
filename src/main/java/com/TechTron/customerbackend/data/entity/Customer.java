@@ -3,6 +3,7 @@ package com.TechTron.customerbackend.data.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,7 @@ public class Customer {
     private int customerId;
 
     @Column(name = "Name" , length = 35)  // VARCHAR(36) in the database
+//    @NotNull(message = "Name is required")
     private String name;
 
     @Column(name = "E-mail", length = 50)
@@ -32,8 +34,8 @@ public class Customer {
     @Column(name = "Address")
     private String address;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "cust", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)  // fetch will not work without specifying FetchType,  When creating customer create cart also hppens  this might not be the desired outcome
+    @JsonBackReference
+    @OneToMany(mappedBy = "cust", cascade = CascadeType.PERSIST)  // fetch will not work without specifying FetchType,  When creating customer create cart also hppens  this might not be the desired outcome
     private List<Cart> crt;
 
 }
