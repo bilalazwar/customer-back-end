@@ -8,9 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 
+
+    //No need this
     @Modifying
     @Query("UPDATE Cart SET cust.customerId = :customerId WHERE cartId = :cartId")
     void updateCustomerIdByCartId(@Param("customerId") int customerId, @Param("cartId") int cartId);
@@ -19,6 +24,13 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
     @Modifying
     @Query("UPDATE Cart SET active = :active WHERE cartId = :cartId")
     void UpdateCartStatus(@Param("active") boolean active, @Param("cartId") int cartId);
+
+
+//    @Query("SELECT Cart WHERE cust.customerId = :customerId")
+    @Query("SELECT c FROM Cart c WHERE cust.customerId = :cusId")
+    Optional<Cart> findCartByCustomerId(int cusId);
+//    List<Optional<Cart>> findCartByCustomerId(int cusId);
+
 }
 
 

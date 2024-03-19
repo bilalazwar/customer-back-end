@@ -3,6 +3,7 @@ package com.TechTron.customerbackend.data.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,25 +19,15 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)     // can change initial value
     @Column(name = "Cart_Id")
+    @ApiModelProperty(hidden = true)
     private int cartId;
 
-//    @JsonIgnore
-    @JsonManagedReference
     @ManyToOne
-    @JoinColumn(name = "Customer_Identity", referencedColumnName = "Customer_Id")
+    @JoinColumn(name = "Customer_Id_Fk", referencedColumnName = "Customer_Id")
     private Customer cust;
 
     @Column(name = "Active")
     private boolean active;
-
-//    @JsonIgnore
-    @JsonBackReference
-    @OneToMany(mappedBy = "crt")
-    private List<CartItem> cartItem;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "cart" , cascade = CascadeType.ALL)
-    private Order order;
 
 }
 

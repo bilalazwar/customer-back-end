@@ -1,14 +1,16 @@
 package com.TechTron.customerbackend.data.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
+//@ApiModel(description = "Represents a customer in the system.")
+//@ApiModel(value = "Customer API Model", description = "The model for car")
+@Schema(name = "Customer Schema", description = "The model for car" )
+//@ApiModel(description = "ghgbfd")
 @Entity
 @Table(name = "customer_tbl")
 
@@ -22,21 +24,24 @@ public class Customer {
     private int customerId;
 
     @Column(name = "Name" , length = 35)  // VARCHAR(36) in the database
-//    @NotNull(message = "Name is required")
+    @ApiModelProperty(value = "This is Customers Full name", required = true)
     private String name;
 
+    @ApiModelProperty(name = "Notes", value = "dff0", example = "fgr")
     @Column(name = "E-mail", length = 50)
     private String email;
 
-    @Column(name = "Phone_Number")
-    private int phoneNumber;
+    @Column(name = "Phone_Number")  //Change to Mobile Number
+    private long phoneNumber;
 
     @Column(name = "Address")
     private String address;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "cust", cascade = CascadeType.PERSIST)  // fetch will not work without specifying FetchType,  When creating customer create cart also hppens  this might not be the desired outcome
-    private List<Cart> crt;
+//    @JsonBackReference
+//    @OneToMany(mappedBy = "cust", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)  // fetch will not work without specifying FetchType,  When creating customer create cart also hppens  this might not be the desired outcome
+//    private List<Cart> crt;
+
+//    private ProductMicro productMicro;
 
 }
 

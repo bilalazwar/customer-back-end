@@ -1,6 +1,6 @@
 package com.TechTron.customerbackend.data.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,14 +17,13 @@ public class CartItem {
     @Column(name = "cart_item_id")
     private int cartItemId;
 
-    @JsonManagedReference
     @ManyToOne
-    @JoinColumn(name = "Cart_Id")
+    @JoinColumn(name = "Cart_Id_Fk")
     private Cart crt;
 
-    @ManyToOne
-    @JoinColumn(name = "Product_Id", referencedColumnName = "Product_Id")
-    private Product product;
+//  joinColumn
+    @Column(name = "Product_Id_Fk")
+    private int productIdFK;
 
     @Column(name = "Quantity")
     private int quantity;

@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,14 +26,25 @@ public class CartService {
         return cartOptional.isPresent();    // if values is present return true
     }
 
-    @Transactional
-    public void updateCustomerIdInCart(int customer_Id,int cart_Id){
-        cartRepository.updateCustomerIdByCartId(customer_Id,cart_Id);
+    public List<Cart> getAllCart(){
+
+        return cartRepository.findAll();
     }
 
-    public Optional<Cart> getCartById(int id) {
+//    @Transactional
+//    public void updateCustomerIdInCart(int customer_Id,int cart_Id){
+//        cartRepository.updateCustomerIdByCartId(customer_Id,cart_Id);
+//    }
 
+    public Optional<Cart> getCartById(int id) {
+//  return cart onl when active status
         return cartRepository.findById(id);
+    }
+
+    public Optional<Cart> getCartByCustomerId(int cusId){
+
+        Optional<Cart> cart = cartRepository.findCartByCustomerId(cusId);
+        return cart;
     }
 
     @Transactional
